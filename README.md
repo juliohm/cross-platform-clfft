@@ -1,7 +1,7 @@
 # clFFT cross-compilation
 
 This project contains a simple Julia script to
-cross-compile clFFT on different (currently 3)
+cross-compile clFFT on different (currently 5)
 platforms.
 
 ## Installation
