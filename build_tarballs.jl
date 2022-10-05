@@ -8,8 +8,8 @@ version = v"2.12.2"
 # Collection of sources required to complete build
 sources = [
     GitSource("https://github.com/clMathLibraries/clFFT.git", "1e4833f060976971c4df4b54b1b9ad1620aaf1fb"),
-    FileSource("https://patch-diff.githubusercontent.com/raw/clMathLibraries/clFFT/pull/244.patch",
-               "2e33aecb0c6d9d264b9ea213d734ae1017cb8ca9593a4918a6265daf59e41581")
+    FileSource("https://patch-diff.githubusercontent.com/raw/clMathLibraries/clFFT/pull/244.diff",
+               "df4b066c6da332b4252891caa81952953d55036f95d60caf5468f4faf6164cd6")
 ]
 
 # Bash recipe for building across all platforms
@@ -18,7 +18,9 @@ cd $WORKSPACE/srcdir
 
 install_license ./clFFT/LICENSE
 
-patch ./clFFT/src/CMakeLists.txt 244.patch
+cd ./clFFT
+git apply ../244.diff
+cd -
 
 cmake -DCMAKE_INSTALL_PREFIX=${prefix} -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TARGET_TOOLCHAIN} -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=OFF -S ./clFFT/src -B ./clFFT/build
 cmake --build ./clFFT/build --target install -j${nproc}
